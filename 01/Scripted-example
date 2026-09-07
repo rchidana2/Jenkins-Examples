@@ -1,0 +1,17 @@
+node {
+    stage('Code Checkout') {
+        echo 'Code Checkout'
+    }
+
+    stage('Build') {
+        echo 'Build'
+    }
+
+    stage('Unit Test') {
+        echo 'Unit Test'
+    }
+
+    stage('Deploy') {
+        echo 'Deploy'
+    }
+}
