@@ -1,43 +1,27 @@
-pipeline {
-    agent none
+node('master') {
 
-    stages {
+    stage('Run on Master') {
+        echo "Running on Jenkins Master/Controller"
+        echo "Node: ${env.NODE_NAME}"
+    }
+}
 
-        stage('Run on Master') {
-            agent {
-                label 'master'
-            }
+node('Windows_Node') {
 
-            steps {
-                echo "Running on Jenkins Master/Controller"
-                echo "Node: ${env.NODE_NAME}"
-            }
-        }
+    stage('Run on Windows Node') {
+        echo "Running on Windows_Node"
+        echo "Node: ${env.NODE_NAME}"
 
-        stage('Run on Windows Node') {
-            agent {
-                label 'Windows_Node'
-            }
+        sleep time: 30, unit: 'SECONDS'
 
-            steps {
-                echo "Running on Windows_Node"
-                echo "Node: ${env.NODE_NAME}"
+        echo "30 seconds completed on Windows_Node"
+    }
+}
 
-                sleep time: 30, unit: 'SECONDS'
+node('master') {
 
-                echo "30 seconds completed on Windows_Node"
-            }
-        }
-
-        stage('Back to Master') {
-            agent {
-                label 'master'
-            }
-
-            steps {
-                echo "Back on Jenkins Master/Controller"
-                echo "Node: ${env.NODE_NAME}"
-            }
-        }
+    stage('Back to Master') {
+        echo "Back on Jenkins Master/Controller"
+        echo "Node: ${env.NODE_NAME}"
     }
 }
