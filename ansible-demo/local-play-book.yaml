@@ -1,0 +1,31 @@
+---
+- name: Jenkins Ansible Local Demo
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+
+    - name: Display hostname
+      ansible.builtin.debug:
+        msg: "Hostname is {{ ansible_hostname }}"
+
+    - name: Display operating system
+      ansible.builtin.debug:
+        msg: "Operating system is {{ ansible_distribution }} {{ ansible_distribution_version }}"
+
+    - name: Create Jenkins Ansible demo file
+      ansible.builtin.file:
+        path: /tmp/jenkins-ansible-demo.txt
+        state: touch
+        mode: '0644'
+
+    - name: Write message to demo file
+      ansible.builtin.copy:
+        content: |
+          Hello from Jenkins + Ansible!
+          Hostname: {{ ansible_hostname }}
+          OS: {{ ansible_distribution }}
+          Version: {{ ansible_distribution_version }}
+        dest: /tmp/jenkins-ansible-demo.txt
+        mode: '0644'
